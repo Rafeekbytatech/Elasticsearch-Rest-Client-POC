@@ -1,6 +1,7 @@
 package com.bytatech.elasticsearch.web;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.elasticsearch.action.DocWriteResponse.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,10 @@ public	Car getCar(@PathVariable String id ){
 		
 	return	queryService.getCar(id);
 	}
+	@GetMapping("/getCars/{id}")
+	public List<Car> findById(Long id){
+		return	queryService.findById(id);
+	}
+	
+	
 }

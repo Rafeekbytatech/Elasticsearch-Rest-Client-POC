@@ -1,5 +1,5 @@
 package com.bytatech.elasticsearch.service.impl;
-
+import static org.elasticsearch.index.query.QueryBuilders.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
@@ -46,18 +47,46 @@ public class QueryServiceImpl implements QueryService {
 
 		
 	}
-	/* public List<User> readAll() throws IOException {
+	public List<Car> findById(Long id) {
 	        List<User> users = new ArrayList<>();
-	        SearchRequest searchRequest = new SearchRequest("users");
+	        SearchRequest searchRequest = new SearchRequest("car");
 	        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-	        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+	        searchSourceBuilder.query(termQuery("id", id));
 	        searchRequest.source(searchSourceBuilder);
-	        searchSourceBuilder.size(5);
-	        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-	        for(SearchHit searchHit : searchResponse.getHits().getHits()){
-	            User user = new ObjectMapper().readValue(searchHit.getSourceAsString(),User.class);
-	            users.add(user);
+	        
+	        SearchResponse searchResponse=null;
+			try {
+				searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        return  getSearchResult(searchResponse);
+	
+	        
+	    }
+	
+	  private List<Car> getSearchResult(SearchResponse response) {
+
+	        SearchHit[] searchHit = response.getHits().getHits();
+
+	        List<Car> carList = new ArrayList<>();
+
+	        for (SearchHit hit : searchHit){
+	            carList
+	                    .add(objectMapper
+	                            .convertValue(hit
+	                                    .getSourceAsMap(), Car.class));
 	        }
-	        return users;
-	    }*/
+
+	        return carList;
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
 }
