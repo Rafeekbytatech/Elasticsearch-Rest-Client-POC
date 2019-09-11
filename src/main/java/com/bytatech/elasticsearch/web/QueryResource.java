@@ -24,7 +24,7 @@ public	Car getCar(@PathVariable String id ){
 	return	queryService.getCar(id);
 	}
 	@GetMapping("/getCars/{id}")
-	public List<Car> findById(Long id){
+	public List<Car> findById(@PathVariable Long id){
 		return	queryService.findById(id);
 	}
 	
