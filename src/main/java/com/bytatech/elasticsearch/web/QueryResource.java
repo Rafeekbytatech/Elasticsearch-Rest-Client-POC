@@ -34,7 +34,7 @@ public class QueryResource {
 
 	
 	@GetMapping("/colorAggregation")
-	public SearchResponse getCarByColorAggregation() throws IOException {
+	public String getCarByColorAggregation() throws IOException {
 		return queryService.getCarByColorAggregation();
 	}
 }

@@ -89,7 +89,7 @@ public class QueryServiceImpl implements QueryService {
 	
 	
 	  @Override
-		public SearchResponse getCarByColorAggregation() throws IOException {
+		public String getCarByColorAggregation() throws IOException {
 			List<String> carList = new ArrayList<String>();
 			 SearchRequest searchRequest = new SearchRequest("car");
 		        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -100,7 +100,7 @@ public class QueryServiceImpl implements QueryService {
 		        SearchResponse   searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
 		        System.out.println("elasticsearch response: {} totalhitssshits"+ searchResponse.getHits().getTotalHits());
 		        System.out.println("elasticsearch response: {} hits .toostring"+searchResponse.toString());
-			return searchResponse;
+			return searchResponse.toString();
 
 		}
 	

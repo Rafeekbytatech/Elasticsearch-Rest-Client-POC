@@ -8,5 +8,5 @@ import org.elasticsearch.action.search.SearchResponse;
 public interface QueryService {
  public Car getCar(String id);
  public List<Car> findById(Long id);
- public SearchResponse getCarByColorAggregation() throws IOException;
+ public String getCarByColorAggregation() throws IOException;
 }
