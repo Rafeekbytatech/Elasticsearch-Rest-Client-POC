@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.elasticsearch.action.DocWriteResponse.Result;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class QueryResource {
 
 	
 	@GetMapping("/colorAggregation")
-	public String getCarByColorAggregation() throws IOException {
+	public List<? extends Bucket> getCarByColorAggregation() throws IOException {
 		return queryService.getCarByColorAggregation();
 	}
 }

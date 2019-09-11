@@ -19,6 +19,8 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
@@ -89,7 +91,7 @@ public class QueryServiceImpl implements QueryService {
 	
 	
 	  @Override
-		public String getCarByColorAggregation() throws IOException {
+		public List<? extends Bucket> getCarByColorAggregation() throws IOException {
 			List<String> carList = new ArrayList<String>();
 			 SearchRequest searchRequest = new SearchRequest("car");
 		        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -100,7 +102,12 @@ public class QueryServiceImpl implements QueryService {
 		        SearchResponse   searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
 		        System.out.println("elasticsearch response: {} totalhitssshits"+ searchResponse.getHits().getTotalHits());
 		        System.out.println("elasticsearch response: {} hits .toostring"+searchResponse.toString());
-			return searchResponse.toString();
+		       // searchResponse.getHits().
+		        Aggregations aggregations = searchResponse.getAggregations();
+		        Terms byColorAggregation=aggregations.get("colors");
+		        byColorAggregation.getBuckets();
+		       
+		        return byColorAggregation.getBuckets();
 
 		}
 	

@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.util.*;
 
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 public interface QueryService {
  public Car getCar(String id);
  public List<Car> findById(Long id);
- public String getCarByColorAggregation() throws IOException;
+ public List<? extends Bucket> getCarByColorAggregation() throws IOException;
 }
