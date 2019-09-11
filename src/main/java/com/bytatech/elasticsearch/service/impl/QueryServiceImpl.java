@@ -30,10 +30,10 @@ public class QueryServiceImpl implements QueryService {
         this.objectMapper = objectMapper;
         this.restHighLevelClient = restHighLevelClient;
     }
-	public Car getCar(Long id){
+	public Car getCar(String id){
 		GetRequest getRequest = new GetRequest(
 		        "car", 
-		        id.toString()); 
+		        id); 
 		  GetResponse getResponse = null;
 		try {
 			getResponse = restHighLevelClient.get(getRequest, RequestOptions.DEFAULT);

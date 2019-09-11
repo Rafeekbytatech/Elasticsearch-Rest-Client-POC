@@ -17,7 +17,7 @@ public class QueryResource {
 	@Autowired
 	QueryService queryService;
 	@GetMapping("/getCar/{id}")
-public	Car getCar(@PathVariable Long id ){
+public	Car getCar(@PathVariable String id ){
 		
 		
 	return	queryService.getCar(id);
