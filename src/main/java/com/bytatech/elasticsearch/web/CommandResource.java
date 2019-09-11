@@ -16,12 +16,12 @@ public class CommandResource {
 	@Autowired
 	CommandService commandService;
 	@PostMapping("/createCar")
-public	Result createCar(@RequestBody Car c){
-		/*Car c= new Car();
+public	Result createCar(/*@RequestBody Car c*/){
+		Car c= new Car();
 		c.setId(12l);
 		c.setColor("blue");
 		c.setMake("ford");
-		c.setDate(LocalDate.now());*/
+		c.setDate(LocalDate.now());
 		
 	return	commandService.createCar(c);
 	}
