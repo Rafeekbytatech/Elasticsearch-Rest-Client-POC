@@ -1,5 +1,8 @@
 package com.bytatech.elasticsearch.service.impl;
 import static org.elasticsearch.index.query.QueryBuilders.*;
+/*import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;*/
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,8 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
@@ -83,7 +88,21 @@ public class QueryServiceImpl implements QueryService {
 	    }
 	
 	
-	
+	  @Override
+		public SearchResponse getCarByColorAggregation() throws IOException {
+			List<String> carList = new ArrayList<String>();
+			 SearchRequest searchRequest = new SearchRequest("car");
+		        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		        searchSourceBuilder.query(matchAllQuery());
+		        searchSourceBuilder.aggregation(AggregationBuilders.terms("colors").field("color.keyword"));
+		       
+		        searchRequest.source(searchSourceBuilder);
+		        SearchResponse   searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+		        System.out.println("elasticsearch response: {} totalhitssshits"+ searchResponse.getHits().getTotalHits());
+		        System.out.println("elasticsearch response: {} hits .toostring"+searchResponse.toString());
+			return searchResponse;
+
+		}
 	
 	
 	
