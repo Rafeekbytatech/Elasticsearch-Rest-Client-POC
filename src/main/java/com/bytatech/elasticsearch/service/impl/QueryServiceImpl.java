@@ -93,7 +93,7 @@ public class QueryServiceImpl implements QueryService {
 		SearchRequest searchRequest = new SearchRequest("car");
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		searchSourceBuilder.query(matchAllQuery());
-		searchSourceBuilder.aggregation(AggregationBuilders.terms("models").field("model"));
+		searchSourceBuilder.aggregation(AggregationBuilders.terms("colors").field("color.keyword"));
 
 		searchRequest.source(searchSourceBuilder);
 		SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
@@ -101,7 +101,7 @@ public class QueryServiceImpl implements QueryService {
 		System.out.println("elasticsearch response: {} hits .toostring" + searchResponse.toString());
 		// searchResponse.getHits().
 		Aggregations aggregations = searchResponse.getAggregations();
-		Terms contractSums = searchResponse.getAggregations().get("models");
+		Terms contractSums = searchResponse.getAggregations().get("colors");
 		for (Terms.Bucket bucket : contractSums.getBuckets()) {
 			ResultBucket result= new ResultBucket();
 			result.setKey(bucket.getKey().toString());
