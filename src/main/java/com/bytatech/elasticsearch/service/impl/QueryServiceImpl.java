@@ -26,6 +26,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
 import com.bytatech.elasticsearch.domain.Car;
+import com.bytatech.elasticsearch.domain.ResultBucket;
 import com.bytatech.elasticsearch.domain.User;
 import com.bytatech.elasticsearch.service.QueryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -87,8 +88,8 @@ public class QueryServiceImpl implements QueryService {
 	}
 
 	@Override
-	public Bucket getCarByColorAggregation() throws IOException {
-		List<String> carList = new ArrayList<String>();
+	public List<ResultBucket> getCarByColorAggregation() throws IOException {
+		List<ResultBucket> carList = new ArrayList<>();
 		SearchRequest searchRequest = new SearchRequest("car");
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		searchSourceBuilder.query(matchAllQuery());
@@ -102,12 +103,20 @@ public class QueryServiceImpl implements QueryService {
 		Aggregations aggregations = searchResponse.getAggregations();
 		Terms contractSums = searchResponse.getAggregations().get("models");
 		for (Terms.Bucket bucket : contractSums.getBuckets()) {
+			ResultBucket result= new ResultBucket();
+			result.setKey(bucket.getKey().toString());
+			result.setDocCount(bucket.getDocCount());
+			result.setKeyAsString(bucket.getKeyAsString());
+			carList.add(result);
 			System.out.println("KEY:" + bucket.getKey() + "!!keyAsString:" + bucket.getKeyAsString() + "!!count:"
 					+ bucket.getDocCount());
+			
+			
+			
 
 		}
 
-		return objectMapper.convertValue(contractSums.getBuckets(), Terms.Bucket.class);
+		return carList;
 	}
 
 }

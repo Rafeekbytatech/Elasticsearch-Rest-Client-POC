@@ -35,7 +35,7 @@ public class QueryResource {
 
 	
 	@GetMapping("/colorAggregation")
-	public Bucket getCarByColorAggregation() throws IOException {
+	public List<ResultBucket> getCarByColorAggregation() throws IOException {
 		return queryService.getCarByColorAggregation();
 	}
 }
