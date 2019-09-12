@@ -16,7 +16,7 @@ import java.util.Set;
 public class Car {
 
 	private Long id;
-
+	private Number model;
 	private Integer price;
 
 	private String color;
