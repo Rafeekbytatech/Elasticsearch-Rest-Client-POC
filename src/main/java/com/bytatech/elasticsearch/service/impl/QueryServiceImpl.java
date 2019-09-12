@@ -91,7 +91,7 @@ public class QueryServiceImpl implements QueryService {
 	
 	
 	  @Override
-		public List<? extends Bucket> getCarByColorAggregation() throws IOException {
+		public Bucket getCarByColorAggregation() throws IOException {
 			List<String> carList = new ArrayList<String>();
 			 SearchRequest searchRequest = new SearchRequest("car");
 		        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -110,7 +110,7 @@ public class QueryServiceImpl implements QueryService {
 		        	
 		        }
 		      
-		        return objectMapper.convertValue(contractSums.getBuckets(),List.class);
+		        return objectMapper.convertValue(contractSums.getBuckets(),Terms.Bucket.class);
 		}
 	
 	

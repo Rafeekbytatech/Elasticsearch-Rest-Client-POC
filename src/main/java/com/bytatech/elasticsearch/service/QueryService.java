@@ -9,5 +9,5 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 public interface QueryService {
  public Car getCar(String id);
  public List<Car> findById(Long id);
- public List<? extends Bucket> getCarByColorAggregation() throws IOException;
+ public Bucket getCarByColorAggregation() throws IOException;
 }
