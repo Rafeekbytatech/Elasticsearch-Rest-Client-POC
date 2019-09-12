@@ -104,11 +104,13 @@ public class QueryServiceImpl implements QueryService {
 		        System.out.println("elasticsearch response: {} hits .toostring"+searchResponse.toString());
 		       // searchResponse.getHits().
 		        Aggregations aggregations = searchResponse.getAggregations();
-		        Terms byColorAggregation=aggregations.get("colors");
-		        byColorAggregation.getBuckets();
-		       
-		        return byColorAggregation.getBuckets();
-
+		        Terms contractSums = searchResponse.getAggregations().get("colors");
+		        for (Terms.Bucket bucket : contractSums.getBuckets()) {
+		        	System.out.println("KEY:"+bucket.getKey()+"!!keyAsString:"+bucket.getKeyAsString()+"!!count:"+bucket.getDocCount());
+		        	
+		        }
+		      
+		        return objectMapper.convertValue(contractSums.getBuckets(),List.class);
 		}
 	
 	
