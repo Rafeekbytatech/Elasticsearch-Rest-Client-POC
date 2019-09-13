@@ -3,7 +3,9 @@ package com.bytatech.elasticsearch.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,7 +26,10 @@ public class Car {
 	private String make;
 
 	private LocalDate date;
-
+	
+	
+	private ZonedDateTime practiceSince ;
+	private Instant instantDate;
 	public Long getId() {
 		return id;
 	}
