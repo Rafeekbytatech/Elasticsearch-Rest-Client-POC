@@ -11,4 +11,6 @@ public interface QueryService {
  public List<Car> findById(Long id);
  public List<ResultBucket> getCarByColorAggregation() throws IOException;
  public List<Store> findAllStore();
+ 
+ public List<ResultBucket> getStoreByMakeAggregation() throws IOException;
 }

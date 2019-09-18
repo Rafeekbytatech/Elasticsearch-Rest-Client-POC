@@ -149,6 +149,37 @@ public class QueryServiceImpl implements QueryService {
 		return storeList;
 	}
 	
-	
+	@Override
+	public List<ResultBucket> getStoreByMakeAggregation() throws IOException {
+		List<ResultBucket> carList = new ArrayList<>();
+		SearchRequest searchRequest = new SearchRequest("store");
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		searchSourceBuilder.query(matchAllQuery());
+		searchSourceBuilder.aggregation(AggregationBuilders.terms("ByRegNo").field("regNo.keyword"));
+
+		searchRequest.source(searchSourceBuilder);
+		SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+		System.out.println("elasticsearch response: {} totalhitssshits" + searchResponse.getHits().getTotalHits());
+		System.out.println("elasticsearch response: {} hits .toostring" + searchResponse.toString());
+		// searchResponse.getHits().
+		Aggregations aggregations = searchResponse.getAggregations();
+		Terms contractSums = searchResponse.getAggregations().get("ByRegNo");
+		for (Terms.Bucket bucket : contractSums.getBuckets()) {
+			ResultBucket result= new ResultBucket();
+			result.setKey(bucket.getKey().toString());
+			result.setDocCount(bucket.getDocCount());
+			result.setKeyAsString(bucket.getKeyAsString());
+			carList.add(result);
+			System.out.println("KEY:" + bucket.getKey() + "!!keyAsString:" + bucket.getKeyAsString() + "!!count:"
+					+ bucket.getDocCount());
+			
+			
+			
+
+		}
+
+		return carList;
+	}
+
 	
 }

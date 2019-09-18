@@ -43,6 +43,10 @@ public class QueryResource {
 	public List<Store> findAllStore() {
 		return queryService.findAllStore();
 	}
+	@GetMapping("/storeMakeAggregation")
+	public List<ResultBucket> getStoreByMakeAggregation() throws IOException {
+		return queryService.getStoreByMakeAggregation();
+	}
 	
 	
 	
