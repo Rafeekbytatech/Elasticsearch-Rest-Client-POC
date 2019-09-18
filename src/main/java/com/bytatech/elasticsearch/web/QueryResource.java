@@ -38,4 +38,12 @@ public class QueryResource {
 	public List<ResultBucket> getCarByColorAggregation() throws IOException {
 		return queryService.getCarByColorAggregation();
 	}
+	
+	@GetMapping("/findAllStore")
+	public List<Store> findAllStore() {
+		return queryService.findAllStore();
+	}
+	
+	
+	
 }

@@ -15,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ElasticConfig {
-    @Value("${elasticsearch.host:c33afcd61ff34675a612d74b066b869d.asia-northeast1.gcp.cloud.es.io}")
+	
+    @Value("${elasticsearch.host:f3289c8240234fd8889f26e665ca3b2e.asia-northeast1.gcp.cloud.es.io}")
     public String host;
     @Value("${elasticsearch.port:9243}")
     public int port;
@@ -31,7 +32,7 @@ public class ElasticConfig {
     public RestHighLevelClient client(){
         System.out.println("host:"+ host+"port:"+port);
         final CredentialsProvider credentialsProvider =new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY,new UsernamePasswordCredentials("elastic", "CSVMmHuT2QSJ2119yoc0agvE"));
+        credentialsProvider.setCredentials(AuthScope.ANY,new UsernamePasswordCredentials("elastic", "DqhheG58ZYn8BzoMZg96DJZz"));
         RestClientBuilder builder =RestClient.builder(new HttpHost(host, port, "https")).setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
         builder.setRequestConfigCallback(requestConfigBuilder -> requestConfigBuilder.setConnectTimeout(timeout * 1000).setSocketTimeout(timeout * 1000)
                 .setConnectionRequestTimeout(0));

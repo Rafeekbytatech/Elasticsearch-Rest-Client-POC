@@ -24,7 +24,7 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
-
+import com.bytatech.elasticsearch.domain.Store;
 import com.bytatech.elasticsearch.domain.Car;
 import com.bytatech.elasticsearch.domain.ResultBucket;
 import com.bytatech.elasticsearch.domain.User;
@@ -119,4 +119,36 @@ public class QueryServiceImpl implements QueryService {
 		return carList;
 	}
 
+	public List<Store> findAllStore() {
+		List<User> users = new ArrayList<>();
+		SearchRequest searchRequest = new SearchRequest("store");
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		searchSourceBuilder.query(matchAllQuery());
+		searchRequest.source(searchSourceBuilder);
+
+		SearchResponse searchResponse = null;
+		try {
+			searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getStore(searchResponse);
+
+	}
+	private List<Store> getStore(SearchResponse response) {
+
+		SearchHit[] searchHit = response.getHits().getHits();
+
+		List<Store> storeList = new ArrayList<>();
+
+		for (SearchHit hit : searchHit) {
+			storeList.add(objectMapper.convertValue(hit.getSourceAsMap(), Store.class));
+		}
+
+		return storeList;
+	}
+	
+	
+	
 }
