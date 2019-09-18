@@ -42,7 +42,7 @@ public class QueryServiceImpl implements QueryService {
 		this.restHighLevelClient = restHighLevelClient;
 	}
 
-	public Car getCar(String id) {
+	/*public Car getCar(String id) {
 		GetRequest getRequest = new GetRequest("car", id);
 		GetResponse getResponse = null;
 		try {
@@ -54,7 +54,7 @@ public class QueryServiceImpl implements QueryService {
 		Map<String, Object> resultMap = getResponse.getSource();
 		return objectMapper.convertValue(resultMap, Car.class);
 
-	}
+	}*/
 
 	public List<Car> findById(Long id) {
 		List<User> users = new ArrayList<>();

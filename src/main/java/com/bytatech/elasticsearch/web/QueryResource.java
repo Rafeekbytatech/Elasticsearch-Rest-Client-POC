@@ -22,12 +22,12 @@ public class QueryResource {
 	@Autowired
 	QueryService queryService;
 
-	@GetMapping("/findByMetaId/{id}")
+	/*@GetMapping("/findByMetaId/{id}")
 	public Car getCar(@PathVariable String id) {
 
 		return queryService.getCar(id);
 	}
-
+*/
 	@GetMapping("/findById/{id}")
 	public List<Car> findById(@PathVariable Long id) {
 		return queryService.findById(id);

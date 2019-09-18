@@ -104,14 +104,14 @@ public class UserController {
         System.out.println("Request submitted !!!");
     }
 
-    @GetMapping("/{id}")
+ /*   @GetMapping("/{id}")
     public User read(@PathVariable final String id) throws IOException {
         GetRequest getRequest = new GetRequest("users",id);
         GetResponse getResponse = client.get(getRequest, RequestOptions.DEFAULT);
         User user = new ObjectMapper().readValue(getResponse.getSourceAsString(),User.class);
         return user;
     }
-
+*/
     @GetMapping("/")
     public List<User> readAll() throws IOException {
         List<User> users = new ArrayList<>();
@@ -152,7 +152,7 @@ public class UserController {
         return users;
     }
 
-    @RequestMapping(value = "/",method =RequestMethod.PUT)
+ /*   @RequestMapping(value = "/",method =RequestMethod.PUT)
     public String update(@RequestBody User user) throws IOException {
         UpdateRequest updateRequest = new UpdateRequest("users",user.getUserId());
         updateRequest.doc(new ObjectMapper().writeValueAsString(user), XContentType.JSON);
@@ -161,13 +161,13 @@ public class UserController {
 
         return updateResponse.status().name();
     }
-
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+*/
+ /*   @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     public String delete(@PathVariable final String id) throws IOException {
         DeleteRequest request = new DeleteRequest("users",id);
         DeleteResponse deleteResponse = client.delete(request,RequestOptions.DEFAULT);
         return deleteResponse.getResult().name();
-    }
+    }*/
 
     ActionListener listener = new ActionListener<IndexResponse>() {
         @Override
